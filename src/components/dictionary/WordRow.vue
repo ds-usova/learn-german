@@ -1,7 +1,7 @@
 <template>
   <b-tr>
     <b-th class="col-6">
-      <editable-span :value="wordValue" @submit="saveWord"/>
+      <editable-span :value="wordValue" @submit="saveWord" :rules="wordRules" />
     </b-th>
     <b-td class="col-6">
       <editable-span :value="translationValue" @submit="saveTranslation"/>
@@ -12,6 +12,7 @@
 <script setup lang="ts">
 import EditableSpan from "../common/EditableSpan.vue";
 import {ref} from "vue";
+import {required} from '@vuelidate/validators'
 
 interface Props {
   word: string
@@ -21,6 +22,9 @@ interface Props {
 const props = defineProps<Props>()
 const wordValue = ref(props.word)
 const translationValue = ref(props.translation)
+const wordRules = {
+  input: { required }
+}
 
 function saveWord(value: string) {
   console.log("word saved..." + value)
