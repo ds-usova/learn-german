@@ -45,10 +45,6 @@ function addNewWord() {
   searchValue.value = ''
   search.value.focus()
 }
-
-function editWord() {
-
-}
 </script>
 
 <style scoped>

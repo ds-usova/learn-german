@@ -1,22 +1,17 @@
 <template>
   <b-tr>
-    <b-th class="col-6">{{ word }}</b-th>
+    <b-th class="col-6">
+      <editable-span :value="wordValue" @submit="saveWord"/>
+    </b-th>
     <b-td class="col-6">
-      <span v-if="!editTranslation" @dblclick="changeTranslationMode">
-        {{ translationInput }}
-      </span>
-      <span v-else>
-        <editable-input :value="translationInput"
-                        @submit="saveTranslation"
-                        @cancel="changeTranslationMode"/>
-      </span>
+      <editable-span :value="translationValue" @submit="saveTranslation"/>
     </b-td>
   </b-tr>
 </template>
 
 <script setup lang="ts">
+import EditableSpan from "../common/EditableSpan.vue";
 import {ref} from "vue";
-import EditableInput from "../common/EditableInput.vue";
 
 interface Props {
   word: string
@@ -24,23 +19,17 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-const editWord = ref(false)
+const wordValue = ref(props.word)
+const translationValue = ref(props.translation)
 
-const editTranslation = ref(false)
-const translationInput = ref(props.translation)
-
-function changeTranslationMode() {
-  editTranslation.value = !editTranslation.value
-}
-
-function cancel() {
-  translationInput.value = props.translation
-  changeTranslationMode()
+function saveWord(value: string) {
+  console.log("word saved..." + value)
+  wordValue.value = value
 }
 
 function saveTranslation(value: string) {
-  translationInput.value = value
-  changeTranslationMode()
+  console.log("translation saved..." + value)
+  translationValue.value = value
 }
 </script>
 
