@@ -6,9 +6,9 @@
         {{ translationInput }}
       </span>
       <span v-else>
-        <b-form-input v-model="translationInput"
-                      ref="translationInputComponent"
-                      @keyup.enter="save"/>
+        <editable-input :value="translationInput"
+                        @submit="saveTranslation"
+                        @cancel="changeTranslationMode"/>
       </span>
     </b-td>
   </b-tr>
@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import {ref} from "vue";
-import { onClickOutside } from '@vueuse/core'
+import EditableInput from "../common/EditableInput.vue";
 
 interface Props {
   word: string
@@ -26,11 +26,8 @@ interface Props {
 const props = defineProps<Props>()
 const editWord = ref(false)
 
-const translationInputComponent = ref(null)
 const editTranslation = ref(false)
 const translationInput = ref(props.translation)
-
-onClickOutside(translationInputComponent, () => cancel())
 
 function changeTranslationMode() {
   editTranslation.value = !editTranslation.value
@@ -41,8 +38,8 @@ function cancel() {
   changeTranslationMode()
 }
 
-function save() {
-  // todo: save
+function saveTranslation(value: string) {
+  translationInput.value = value
   changeTranslationMode()
 }
 </script>
