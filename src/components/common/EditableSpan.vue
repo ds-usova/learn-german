@@ -1,5 +1,5 @@
 <template>
-  <span v-if="!editMode" @dblclick="changeEditMode">
+  <span v-if="!editMode" @dblclick="toEditMode">
         {{ value }}
       </span>
   <span v-else>
@@ -32,16 +32,20 @@ onClickOutside(inputComponent, () => cancel())
 
 function submit() {
   emits('submit', input.value)
-  changeEditMode()
+  toReadMode()
 }
 
 function cancel() {
   input.value = props.value
-  changeEditMode()
+  toReadMode()
 }
 
-function changeEditMode() {
-  editMode.value = !editMode.value
+function toReadMode() {
+  editMode.value = false
+}
+
+function toEditMode() {
+  editMode.value = true
 }
 </script>
 
