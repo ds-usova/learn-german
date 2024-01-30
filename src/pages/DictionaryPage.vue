@@ -1,31 +1,31 @@
 <template>
-  <div>
-    <Header/>
-    <b-container>
-      <b-row>
-        <b-input-group>
-          <b-form-input ref="search"
-                        type="text"
-                        placeholder="Search"
-                        v-model="searchValue"
-                        id="search"></b-form-input>
-          <b-input-group-append v-if="searchMode">
-            <b-button @click="addNewWord">Add</b-button>
-          </b-input-group-append>
-        </b-input-group>
+  <b-container>
+    <b-row>
+      <Header/>
+    </b-row>
+    <b-row>
+      <b-input-group>
+        <b-form-input ref="search"
+                      type="text"
+                      placeholder="Search"
+                      v-model="searchValue"
+                      id="search"></b-form-input>
+        <b-input-group-append v-if="searchMode">
+          <b-button @click="addNewWord">Add</b-button>
+        </b-input-group-append>
+      </b-input-group>
 
-        <BFormText id="search">Use '/' to separate the word and the translation.</BFormText>
-      </b-row>
+      <BFormText id="search">Use '/' to separate the word and the translation.</BFormText>
+    </b-row>
 
-      <b-row>
-        <b-table-simple>
-          <b-tbody>
-            <word-row v-for="row in filteredWords" :word="row.word" :translation="row.translation" />
-          </b-tbody>
-        </b-table-simple>
-      </b-row>
-    </b-container>
-  </div>
+    <b-row>
+      <b-table-simple>
+        <b-tbody>
+          <word-row v-for="row in filteredWords" :word="row.word" :translation="row.translation"/>
+        </b-tbody>
+      </b-table-simple>
+    </b-row>
+  </b-container>
 </template>
 
 <script setup lang="ts">

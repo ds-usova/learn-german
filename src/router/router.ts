@@ -1,10 +1,11 @@
-import { createRouter, createWebHistory } from "vue-router";
+import {createRouter, createWebHistory} from "vue-router";
 import Main from "../pages/MainPage.vue";
-import Dictionary from "../pages/DictionaryPage.vue";
 
 const routes = [
     { path: "/", name: "main", component: Main },
-    { path: "/dictionary", name: "dictionary", component: Dictionary },
+    { path: "/dictionary", name: "dictionary", component: import('../pages/DictionaryPage.vue') },
+    { path: "/grammar", name: "grammar", component: import('../pages/GrammarPage.vue') },
+    { path: "/lists", name: "lists", component: import('../pages/WordListsPage.vue') },
 ];
 
 const router = createRouter({
