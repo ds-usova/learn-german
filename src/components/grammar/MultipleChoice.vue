@@ -3,7 +3,7 @@
     <b-row @keydown="handleKeyboardInput">
       <b-col cols="3">
         <div class="p-3">
-          {{ question }}
+          {{ question.text }}
         </div>
       </b-col>
       <b-col cols="9">
@@ -46,19 +46,24 @@
 <script setup lang="ts">
 import {isArrayIndex, isLast, last, shuffle} from "../../utils/arrayUtils";
 import {computed, onMounted, ref} from "vue";
+import {AnswerSubmitData, MultipleChoiceQuestion} from "./types/RoundData";
 
 interface Props {
-  question: string
-  options: Array<String>,
-  correctAnswer: string
+  question: MultipleChoiceQuestion
+}
+
+interface Emits {
+  (e: 'submit', answerSubmitData: AnswerSubmitData)
 }
 
 const props = defineProps<Props>()
-const allOptions = shuffle([...props.options])
+const emits = defineEmits<Emits>()
+
+const allOptions = shuffle([...props.question.options])
 allOptions.push('I do not know')
 
 const selected = ref('')
-const correct = computed(() => selected.value == props.correctAnswer)
+const correct = computed(() => selected.value == props.question.correctAnswer)
 const answerSubmitted = ref(false)
 const correctAnswerSubmitted = computed(() => answerSubmitted.value && correct.value)
 const wrongAnswerSubmitted = computed(() => answerSubmitted.value && !correct.value)
@@ -70,10 +75,11 @@ onMounted(() => {
 function select(option: string) {
   selected.value = option
   answerSubmitted.value = true
+  emits('submit', {correct: correct.value})
 }
 
 function getButtonStyleFor(option: string): string {
-  if (answerSubmitted.value && option == props.correctAnswer) {
+  if (answerSubmitted.value && option == props.question.correctAnswer) {
     return 'outline-success'
   } else if (answerSubmitted.value && !correct.value && option == selected.value) {
     return 'outline-danger'
@@ -88,6 +94,7 @@ function handleKeyboardInput(event) {
   const key = event.key
   if (key === 'Enter') {
     select(last(allOptions))
+    event.stopImmediatePropagation()
   } else {
     const parsed = parseInt(key) - 1
     if (!isNaN(parsed) && isArrayIndex(allOptions, parsed) && !isLast(allOptions, parsed)) {
