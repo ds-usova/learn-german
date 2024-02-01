@@ -1,7 +1,9 @@
 <template>
   <template v-if="state !== State.COMPLETED">
     <b-row>
-      Question {{ currentCount }} / {{ roundCount }}
+      <div class="d-flex justify-content-end counter mb-1">
+        {{ currentCount }}/{{ roundCount }}
+      </div>
     </b-row>
 
     <template v-if="roundData.practiceType === PracticeType.MULTIPLE_CHOICE">
@@ -12,14 +14,15 @@
   </template>
 
   <template v-else>
-    Completed: {{ correctAnswerCount }} / {{ roundCount }}
+    <completed-practice :result="result"/>
   </template>
 </template>
 
 <script setup lang="ts">
 import {computed, onMounted, ref} from "vue";
 import MultipleChoice from "./MultipleChoice.vue";
-import {RoundData, PracticeType, AnswerSubmitData} from "./types/RoundData";
+import {RoundData, PracticeType, AnswerSubmitData, PracticeResult} from "./types/RoundData";
+import CompletedPractice from "./CompletedPractice.vue";
 
 enum State { PENDING, ANSWER_SUBMITTED, COMPLETED }
 
@@ -35,6 +38,7 @@ const currentQuestion = computed(() => props.roundData.questions[currentCount.va
 const state = ref(State.PENDING)
 
 const correctAnswerCount = ref(0)
+const result = ref({})
 
 onMounted(() => {
   document.addEventListener('keydown', handleKeyboardInput)
@@ -54,6 +58,7 @@ function handleKeyboardInput(event) {
   if (state.value == State.ANSWER_SUBMITTED && key === 'Enter') {
     if (currentCount.value == roundCount) {
       state.value = State.COMPLETED
+      result.value = new PracticeResult(correctAnswerCount.value, roundCount)
     } else {
       currentCount.value++
       state.value = State.PENDING
@@ -63,5 +68,8 @@ function handleKeyboardInput(event) {
 </script>
 
 <style scoped>
-
+.counter {
+  font-size: 19px;
+  color: grey;
+}
 </style>

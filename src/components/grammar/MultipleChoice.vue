@@ -1,6 +1,6 @@
 <template>
   <b-card footer-tag="footer" align="">
-    <b-row @keydown="handleKeyboardInput">
+    <b-row>
       <b-col cols="3">
         <div class="p-3">
           {{ question.text }}
