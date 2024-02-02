@@ -13,8 +13,14 @@ export interface MultipleChoiceQuestion extends Question {
     correctAnswer: string
 }
 
+export interface FlashcardsQuestion extends Question {
+    text: string
+    correctAnswer: string
+}
+
 export enum PracticeType {
-    MULTIPLE_CHOICE
+    MULTIPLE_CHOICE,
+    FLASHCARDS
 }
 
 export interface AnswerSubmitData {

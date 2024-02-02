@@ -11,6 +11,11 @@
         <multiple-choice :question="currentQuestion" @submit="updateResults"/>
       </div>
     </template>
+    <template v-else-if="roundData.practiceType === PracticeType.FLASHCARDS">
+      <div :key="currentCount">
+        <flashcards-practice :question="currentQuestion" @submit="updateResults"/>
+      </div>
+    </template>
   </template>
 
   <template v-else>
@@ -19,10 +24,11 @@
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted, ref} from "vue";
-import MultipleChoice from "./MultipleChoice.vue";
-import {RoundData, PracticeType, AnswerSubmitData, PracticeResult} from "./types/RoundData";
-import CompletedPractice from "./CompletedPractice.vue";
+import {computed, onMounted, ref} from "vue"
+import MultipleChoice from "./MultipleChoicePractice.vue"
+import FlashcardsPractice from "./FlashcardsPractice.vue"
+import {RoundData, PracticeType, AnswerSubmitData, PracticeResult} from "./types/RoundData"
+import CompletedPractice from "./CompletedPractice.vue"
 
 enum State { PENDING, ANSWER_SUBMITTED, COMPLETED }
 
