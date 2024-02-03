@@ -1,0 +1,43 @@
+.correct {
+    color: green;
+}
+
+.wrong {
+    color: red;
+}
+
+.default {
+    color: grey;
+}
+
+.no-border {
+    border-color: transparent;
+}
+
+.text {
+    font-size: 16px;
+}
+
+.sub-text {
+    font-size: 14px;
+}
+
+.w-90 {
+    width: 90% !important;
+}
+
+.w-80 {
+    width: 80% !important;
+}
+
+.w-70 {
+    width: 70% !important;
+}
+
+.w-60 {
+    width: 60% !important;
+}
+
+.margin--10 {
+    margin-left: -10%;
+}

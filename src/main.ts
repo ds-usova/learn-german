@@ -9,6 +9,7 @@ import router from './router/router'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue-next/dist/bootstrap-vue-next.css'
 import '@fortawesome/fontawesome-free/css/all.css'
+import './assets/css/main.css'
 
 library.add(faArrowRight, faArrowLeft)
 const app = createApp(App)

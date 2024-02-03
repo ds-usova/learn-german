@@ -1,12 +1,12 @@
 <template>
-  <div class="footer">
-    <span v-if="state === State.CORRECT" style="color: green">
+  <div class="footer sub-text">
+    <span v-if="state === State.CORRECT" class="correct">
       Correct answer
     </span>
-    <span v-else-if="state === State.WRONG" style="color: red">
+    <span v-else-if="state === State.WRONG" class="wrong">
           Wrong answer
     </span>
-    <span v-else style="color: grey">
+    <span v-else class="default">
       Submit your answer
     </span>
   </div>
@@ -25,6 +25,5 @@ const props = defineProps<Props>()
 <style scoped>
 .footer {
   text-align: right;
-  font-size: 14px;
 }
 </style>
