@@ -17,7 +17,7 @@
               <b-button @click="select(option)"
                         class="w-100"
                         style="text-align: left"
-                        :disabled="answerSubmitted"
+                        :disabled="!pending"
                         :variant="getButtonStyleFor(option)">
                 {{ option }}
               </b-button>
@@ -28,17 +28,7 @@
     </b-row>
 
     <template #footer>
-      <div class="footer">
-        <span v-if="correctAnswerSubmitted" style="color: green">
-          Correct answer
-        </span>
-        <span v-else-if="wrongAnswerSubmitted" style="color: red">
-          Wrong answer
-        </span>
-        <span v-else>
-          Submit your answer
-        </span>
-      </div>
+      <practice-default-footer :state="state"/>
     </template>
   </b-card>
 </template>
@@ -46,7 +36,8 @@
 <script setup lang="ts">
 import {isArrayIndex, isLast, last, shuffle} from "../../utils/arrayUtils";
 import {computed, onMounted, ref} from "vue";
-import {AnswerSubmitData, MultipleChoiceQuestion} from "./types/RoundData";
+import {AnswerSubmitData, MultipleChoiceQuestion, State} from "./types/RoundData";
+import PracticeDefaultFooter from "./PracticeDefaultFooter.vue";
 
 interface Props {
   question: MultipleChoiceQuestion
@@ -63,10 +54,8 @@ const allOptions = shuffle([...props.question.options])
 allOptions.push('I do not know')
 
 const selected = ref('')
-const correct = computed(() => selected.value == props.question.correctAnswer)
-const answerSubmitted = ref(false)
-const correctAnswerSubmitted = computed(() => answerSubmitted.value && correct.value)
-const wrongAnswerSubmitted = computed(() => answerSubmitted.value && !correct.value)
+const state = ref(State.PENDING)
+const pending = computed(() => state.value === State.PENDING)
 
 onMounted(() => {
   document.addEventListener('keydown', handleKeyboardInput)
@@ -74,14 +63,14 @@ onMounted(() => {
 
 function select(option: string) {
   selected.value = option
-  answerSubmitted.value = true
-  emits('submit', {correct: correct.value})
+  state.value = option == props.question.correctAnswer ? State.CORRECT : State.WRONG
+  emits('submit', {correct: state.value == State.CORRECT})
 }
 
 function getButtonStyleFor(option: string): string {
-  if (answerSubmitted.value && option == props.question.correctAnswer) {
+  if (state.value !== State.PENDING && option == props.question.correctAnswer) {
     return 'outline-success'
-  } else if (answerSubmitted.value && !correct.value && option == selected.value) {
+  } else if (state.value === State.WRONG && option == selected.value) {
     return 'outline-danger'
   } else {
     return 'outline-dark'
@@ -89,7 +78,7 @@ function getButtonStyleFor(option: string): string {
 }
 
 function handleKeyboardInput(event) {
-  if (answerSubmitted.value) return
+  if (state.value !== State.PENDING) return
 
   const key = event.key
   if (key === 'Enter') {
@@ -105,9 +94,4 @@ function handleKeyboardInput(event) {
 </script>
 
 <style scoped>
-.footer {
-  text-align: right;
-  color: grey;
-  font-size: 14px;
-}
 </style>

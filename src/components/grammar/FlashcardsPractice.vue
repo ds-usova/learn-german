@@ -10,26 +10,25 @@
 
     <b-row>
       <div class="d-flex justify-content-center gap-4">
-        <b-button variant="outline-dark" pill>
+        <b-button size="lg" variant="outline-dark" pill>
           <font-awesome-icon :icon="['fas', 'arrow-left']"/>
         </b-button>
 
-        <b-button variant="outline-dark" pill>
+        <b-button size="lg" variant="outline-dark" pill>
           <font-awesome-icon :icon="['fas', 'arrow-right']"/>
         </b-button>
       </div>
     </b-row>
 
     <template #footer>
-      <div class="footer">
-        Submit your answer
-      </div>
+      <practice-default-footer :state="state"/>
     </template>
   </b-card>
 </template>
 
 <script setup lang="ts">
-import {AnswerSubmitData, FlashcardsQuestion} from "./types/RoundData.js";
+import {AnswerSubmitData, FlashcardsQuestion, State} from "./types/RoundData.js";
+import PracticeDefaultFooter from "./PracticeDefaultFooter.vue";
 
 interface Props {
   question: FlashcardsQuestion
@@ -41,12 +40,9 @@ interface Emits {
 
 const props = defineProps<Props>()
 const emits = defineEmits<Emits>()
+
+const state = State.PENDING
 </script>
 
 <style scoped>
-.footer {
-  text-align: right;
-  color: grey;
-  font-size: 14px;
-}
 </style>

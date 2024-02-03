@@ -36,3 +36,9 @@ export class PracticeResult {
         this.from = from;
     }
 }
+
+export enum State {
+    PENDING,
+    CORRECT,
+    WRONG
+}
