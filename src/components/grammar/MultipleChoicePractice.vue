@@ -64,7 +64,6 @@ onMounted(() => {
 function select(option: string) {
   selected.value = option
   state.value = option == props.question.correctAnswer ? State.CORRECT : State.WRONG
-  emits('submit', {correct: state.value == State.CORRECT})
 }
 
 function getButtonStyleFor(option: string): string {
@@ -78,18 +77,30 @@ function getButtonStyleFor(option: string): string {
 }
 
 function handleKeyboardInput(event) {
-  if (state.value !== State.PENDING) return
-
-  const key = event.key
-  if (key === 'Enter') {
-    select(last(allOptions))
-    event.stopImmediatePropagation()
+  if (state.value === State.PENDING) {
+    const selectedOption = findSelectedOption(event)
+    if (selectedOption !== null) {
+      select(selectedOption)
+    }
   } else {
-    const parsed = parseInt(key) - 1
-    if (!isNaN(parsed) && isArrayIndex(allOptions, parsed) && !isLast(allOptions, parsed)) {
-      select(allOptions[parsed])
+    if (event.key === 'Enter') {
+      emits('submit', {correct: state.value == State.CORRECT})
     }
   }
+}
+
+function findSelectedOption(event): string | null {
+  const key = event.key
+  if (key === 'Enter') {
+    return last(allOptions)
+  }
+
+  const parsed = parseInt(key) - 1
+  if (!isNaN(parsed) && isArrayIndex(allOptions, parsed) && !isLast(allOptions, parsed)) {
+    return allOptions[parsed]
+  }
+
+  return null
 }
 </script>
 

@@ -24,13 +24,13 @@
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted, ref} from "vue"
+import {computed, ref} from "vue"
 import MultipleChoice from "./MultipleChoicePractice.vue"
 import FlashcardsPractice from "./FlashcardsPractice.vue"
 import {RoundData, PracticeType, AnswerSubmitData, PracticeResult} from "./types/RoundData"
 import CompletedPractice from "./CompletedPractice.vue"
 
-enum State { PENDING, ANSWER_SUBMITTED, COMPLETED }
+enum State { PENDING, COMPLETED }
 
 interface Props {
   roundData: RoundData
@@ -46,29 +46,16 @@ const state = ref(State.PENDING)
 const correctAnswerCount = ref(0)
 const result = ref({})
 
-onMounted(() => {
-  document.addEventListener('keydown', handleKeyboardInput)
-})
-
 function updateResults(answerSubmitData: AnswerSubmitData) {
   if (answerSubmitData.correct) {
     correctAnswerCount.value++
   }
 
-  state.value = State.ANSWER_SUBMITTED
-}
-
-function handleKeyboardInput(event) {
-  const key = event.key
-
-  if (state.value == State.ANSWER_SUBMITTED && key === 'Enter') {
-    if (currentCount.value == roundCount) {
-      state.value = State.COMPLETED
-      result.value = new PracticeResult(correctAnswerCount.value, roundCount)
-    } else {
-      currentCount.value++
-      state.value = State.PENDING
-    }
+  if (currentCount.value == roundCount) {
+    state.value = State.COMPLETED
+    result.value = new PracticeResult(correctAnswerCount.value, roundCount)
+  } else {
+    currentCount.value++
   }
 }
 </script>

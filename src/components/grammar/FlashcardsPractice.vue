@@ -155,10 +155,7 @@ function handleKeyboardInput(event) {
       processKeyInput(event.keyCode, toRevision, submit)
       break
     case State.WRONG:
-      if (event.key == 'Enter') {
-        submit()
-        event.stopImmediatePropagation()
-      }
+      processEnter(event.key)
       break
   }
 }
@@ -168,6 +165,12 @@ function processKeyInput(keyCode: string, leftCallback: () => void, rightCallbac
     leftCallback()
   } else if (right(keyCode)) {
     rightCallback()
+  }
+}
+
+function processEnter(key: string) {
+  if (key === 'Enter') {
+    submit()
   }
 }
 
