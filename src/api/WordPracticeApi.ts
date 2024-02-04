@@ -1,9 +1,16 @@
-import {FlashcardsQuestion, MultipleChoiceQuestion, Practice, PracticeRound, PracticeType} from "../model/Practice";
+import {
+    FlashcardsQuestion,
+    InputQuestion,
+    MultipleChoiceQuestion,
+    Practice,
+    PracticeRound,
+    PracticeType
+} from "../model/Practice";
 
 export default new class WordPracticeApi {
 
     getPracticeList(): Array<Practice> {
-        return [this.articlePractice(), this.flashcardPractice()]
+        return [this.articlePractice(), this.flashcardPractice(), this.presentSimplePractice()]
     }
 
     getPracticeRound(id: string): PracticeRound {
@@ -13,6 +20,10 @@ export default new class WordPracticeApi {
 
         if (id === '2') {
             return {practice: this.flashcardPractice(), questions: this.flashcardQuestions()}
+        }
+
+        if (id === '3') {
+            return {practice: this.presentSimplePractice(), questions: this.presentSimpleQuestions()}
         }
     }
 
@@ -47,6 +58,50 @@ export default new class WordPracticeApi {
             {text: 'der Tisch', correctAnswer: 'table'},
             {text: 'die Tür', correctAnswer: 'door'},
             {text: 'das Buch', correctAnswer: 'book'},
+        ]
+    }
+
+    // present simple
+    private presentSimplePractice(): Practice {
+        return {
+            id: '3',
+            name: 'Present Simple',
+            practiceType: PracticeType.MULTIPLE_INPUT
+        }
+    }
+
+    private presentSimpleQuestions(): Array<InputQuestion> {
+        return [
+            {
+                text: 'Sind', questions: [
+                    {question: 'ich', answer: 'bin'},
+                    {question: 'du', answer: 'bist'},
+                    {question: 'er / es / sie', answer: 'ist'},
+                    {question: 'wir', answer: 'sind'},
+                    {question: 'ihr', answer: 'seid'},
+                    {question: 'sie / Sie', answer: 'sind'},
+                ]
+            },
+            {
+                text: 'Haben', questions: [
+                    {question: 'ich', answer: 'habe'},
+                    {question: 'du', answer: 'hast'},
+                    {question: 'er / es / sie', answer: 'hat'},
+                    {question: 'wir', answer: 'haben'},
+                    {question: 'ihr', answer: 'habt'},
+                    {question: 'sie / Sie', answer: 'haben'},
+                ]
+            },
+            {
+                text: 'Möchten', questions: [
+                    {question: 'ich', answer: 'möchte'},
+                    {question: 'du', answer: 'möchtest'},
+                    {question: 'er / es / sie', answer: 'möchte'},
+                    {question: 'wir', answer: 'möchten'},
+                    {question: 'ihr', answer: 'möchtet'},
+                    {question: 'sie / Sie', answer: 'möchten'},
+                ]
+            },
         ]
     }
 

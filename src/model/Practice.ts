@@ -24,7 +24,18 @@ export interface FlashcardsQuestion extends Question {
     correctAnswer: string
 }
 
+export interface InputQuestion extends Question {
+    text: string
+    questions: Array<QuestionAnswer>
+}
+
+export interface QuestionAnswer {
+    question: string
+    answer: string
+}
+
 export enum PracticeType {
     MULTIPLE_CHOICE,
-    FLASHCARDS
+    FLASHCARDS,
+    MULTIPLE_INPUT
 }

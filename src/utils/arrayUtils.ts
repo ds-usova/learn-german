@@ -12,6 +12,11 @@ export function swap<T>(array: Array<T>, i: number, j: number) {
     array[j] = temp
 }
 
+export function isFirst<T>(array: Array<T>, i: number) {
+    if (array.length == 0) return false
+    return i == 0
+}
+
 export function isLast<T>(array: Array<T>, i: number): boolean {
     return array.length - 1 == i
 }

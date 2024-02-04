@@ -16,6 +16,11 @@
         <flashcards-practice :question="currentQuestion" @submit="updateResults"/>
       </div>
     </template>
+    <template v-else-if="roundData.practice.practiceType === PracticeType.MULTIPLE_INPUT">
+      <div :key="currentCount">
+        <multiple-input-practice :question="currentQuestion" @submit="updateResults"/>
+      </div>
+    </template>
   </template>
 
   <template v-else>
@@ -30,6 +35,7 @@ import FlashcardsPractice from "./FlashcardsPractice.vue"
 import {AnswerSubmitData, PracticeResult} from "./types/RoundData"
 import CompletedPractice from "./CompletedPractice.vue"
 import {PracticeRound, PracticeType} from "../../model/Practice";
+import MultipleInputPractice from "./multipleInputPractice/MultipleInputPractice.vue";
 
 enum State { PENDING, COMPLETED }
 
