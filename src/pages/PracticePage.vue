@@ -13,8 +13,8 @@
 
 <script setup lang="ts">
 import Header from "../components/common/Header.vue";
-import PracticeTemplate from "../components/grammar/PracticeTemplate.vue";
-import {PracticeType} from "../components/grammar/types/RoundData";
+import PracticeTemplate from "../components/practice/PracticeTemplate.vue";
+import {PracticeType} from "../components/practice/types/RoundData";
 
 const multipleChoiceQuestions = [
   {text: 'Tisch', options: ['der', 'die', 'das'], correctAnswer: 'der'},
