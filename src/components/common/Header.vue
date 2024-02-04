@@ -4,7 +4,7 @@
       <b-navbar-nav>
         <b-nav-item href="/dictionary">Dictionary</b-nav-item>
         <b-nav-item href="/lists">Word lists</b-nav-item>
-        <b-nav-item href="/practice">Practice</b-nav-item>
+        <b-nav-item href="/practice">Word practice</b-nav-item>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>

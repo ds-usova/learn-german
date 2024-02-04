@@ -36,8 +36,9 @@
 <script setup lang="ts">
 import {isArrayIndex, isLast, last, shuffle} from "../../utils/arrayUtils";
 import {computed, onMounted, ref} from "vue";
-import {AnswerSubmitData, MultipleChoiceQuestion, State} from "./types/RoundData";
+import {AnswerSubmitData, State} from "./types/RoundData";
 import PracticeDefaultFooter from "./PracticeDefaultFooter.vue";
+import {MultipleChoiceQuestion} from "../../model/Practice";
 
 interface Props {
   question: MultipleChoiceQuestion

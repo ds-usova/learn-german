@@ -6,12 +6,12 @@
       </div>
     </b-row>
 
-    <template v-if="roundData.practiceType === PracticeType.MULTIPLE_CHOICE">
+    <template v-if="roundData.practice.practiceType === PracticeType.MULTIPLE_CHOICE">
       <div :key="currentCount">
         <multiple-choice :question="currentQuestion" @submit="updateResults"/>
       </div>
     </template>
-    <template v-else-if="roundData.practiceType === PracticeType.FLASHCARDS">
+    <template v-else-if="roundData.practice.practiceType === PracticeType.FLASHCARDS">
       <div :key="currentCount">
         <flashcards-practice :question="currentQuestion" @submit="updateResults"/>
       </div>
@@ -27,13 +27,14 @@
 import {computed, ref} from "vue"
 import MultipleChoice from "./MultipleChoicePractice.vue"
 import FlashcardsPractice from "./FlashcardsPractice.vue"
-import {RoundData, PracticeType, AnswerSubmitData, PracticeResult} from "./types/RoundData"
+import {AnswerSubmitData, PracticeResult} from "./types/RoundData"
 import CompletedPractice from "./CompletedPractice.vue"
+import {PracticeRound, PracticeType} from "../../model/Practice";
 
 enum State { PENDING, COMPLETED }
 
 interface Props {
-  roundData: RoundData
+  roundData: PracticeRound
 }
 
 const props = defineProps<Props>()

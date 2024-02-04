@@ -109,9 +109,10 @@
 </template>
 
 <script setup lang="ts">
-import {AnswerSubmitData, FlashcardsQuestion, State} from "./types/RoundData.js";
+import {AnswerSubmitData, State} from "./types/RoundData.js";
 import PracticeDefaultFooter from "./PracticeDefaultFooter.vue";
 import {onMounted, ref} from "vue";
+import {FlashcardsQuestion} from "../../model/Practice";
 
 interface Props {
   question: FlashcardsQuestion
