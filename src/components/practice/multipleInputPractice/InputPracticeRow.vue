@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import {State} from "../types/RoundData";
-import {defineModel, onMounted, ref} from "vue";
+import {defineModel, onMounted, onUpdated, ref} from "vue";
 
 interface Props {
   label: string
@@ -39,10 +39,18 @@ const input = defineModel()
 const inputRef = ref(null)
 
 onMounted(() => {
+  focus()
+})
+
+onUpdated(() => {
+  focus()
+})
+
+function focus() {
   if (props.focus) {
     inputRef.value.focus()
   }
-})
+}
 </script>
 
 <style scoped>

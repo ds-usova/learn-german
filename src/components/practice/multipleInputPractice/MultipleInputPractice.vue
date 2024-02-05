@@ -15,7 +15,7 @@
                             :label="input.label"
                             :correct="input.correct()"
                             :state="state"
-                            :focus="index == 0"/>
+                            :focus="index === indexOfInputToFocusOn"/>
       </b-row>
 
       <b-row>
@@ -91,6 +91,7 @@ interface Emits {
 const props = defineProps<Props>()
 const emits = defineEmits<Emits>()
 
+const indexOfInputToFocusOn = ref(0)
 const inputs = props.question.questions.map((it) => new Input(it.question, it.answer, ''))
 const state = ref(State.PENDING)
 
@@ -99,7 +100,11 @@ onMounted(() => {
 })
 
 function checkInputs() {
-  const allCorrect = inputs.reduce((result, current) => result && current.correct(), true)
+  const firstWrongIndex = inputs.findIndex((it) => !it.correct())
+  console.log(firstWrongIndex)
+  const allCorrect = firstWrongIndex == -1
+
+  indexOfInputToFocusOn.value = firstWrongIndex
   state.value = allCorrect ? State.CORRECT : State.WRONG
 }
 
