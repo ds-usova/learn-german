@@ -15,5 +15,6 @@ export class PracticeResult {
 export enum State {
     PENDING,
     CORRECT,
-    WRONG
+    WRONG,
+    SKIP
 }
