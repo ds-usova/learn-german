@@ -29,6 +29,11 @@ export interface InputQuestion extends Question {
     questions: Array<QuestionAnswer>
 }
 
+export interface TypingQuestion extends Question {
+    translation: string
+    answer: string
+}
+
 export interface QuestionAnswer {
     question: string
     answer: string
@@ -37,5 +42,6 @@ export interface QuestionAnswer {
 export enum PracticeType {
     MULTIPLE_CHOICE,
     FLASHCARDS,
-    MULTIPLE_INPUT
+    MULTIPLE_INPUT,
+    TYPING
 }

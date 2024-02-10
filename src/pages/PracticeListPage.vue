@@ -5,7 +5,7 @@
     </b-row>
     <b-row cols="3">
       <b-col v-for="(practice, index) in practiceList" :key="index">
-        <b-card>
+        <b-card class="mt-3">
           <b-card-title class="text">
             <router-link class="nav-link" :to="{ name: 'practice', params: { id: practice.id }}">
               {{ practice.name }}

@@ -4,13 +4,13 @@ import {
     MultipleChoiceQuestion,
     Practice,
     PracticeRound,
-    PracticeType
+    PracticeType, TypingQuestion
 } from "../model/Practice";
 
 export default new class WordPracticeApi {
 
     getPracticeList(): Array<Practice> {
-        return [this.articlePractice(), this.flashcardPractice(), this.presentSimplePractice()]
+        return [this.articlePractice(), this.flashcardPractice(), this.presentSimplePractice(), this.typingPractice()]
     }
 
     getPracticeRound(id: string): PracticeRound {
@@ -24,6 +24,10 @@ export default new class WordPracticeApi {
 
         if (id === '3') {
             return {practice: this.presentSimplePractice(), questions: this.presentSimpleQuestions()}
+        }
+
+        if (id === '4') {
+            return {practice: this.typingPractice(), questions: this.typingQuestion()}
         }
     }
 
@@ -101,6 +105,32 @@ export default new class WordPracticeApi {
                     {question: 'ihr', answer: 'möchtet'},
                     {question: 'sie / Sie', answer: 'möchten'},
                 ]
+            },
+        ]
+    }
+
+    // typing
+    private typingPractice(): Practice {
+        return {
+            id: '4',
+            name: 'Typing practice',
+            practiceType: PracticeType.TYPING
+        }
+    }
+
+    private typingQuestion(): Array<TypingQuestion> {
+        return [
+            {
+                translation: 'table',
+                answer: 'der Tisch'
+            },
+            {
+                translation: 'door',
+                answer: 'die Tür'
+            },
+            {
+                translation: 'book',
+                answer: 'das Buch'
             },
         ]
     }

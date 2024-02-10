@@ -21,6 +21,11 @@
         <multiple-input-practice :question="currentQuestion" @submit="updateResults"/>
       </div>
     </template>
+    <template v-else-if="roundData.practice.practiceType === PracticeType.TYPING">
+      <div :key="currentCount">
+        <typing-practice :question="currentQuestion" @submit="updateResults"/>
+      </div>
+    </template>
   </template>
 
   <template v-else>
@@ -36,6 +41,7 @@ import {AnswerSubmitData, PracticeResult} from "./types/RoundData"
 import CompletedPractice from "./CompletedPractice.vue"
 import {PracticeRound, PracticeType} from "../../model/Practice";
 import MultipleInputPractice from "./multipleInputPractice/MultipleInputPractice.vue";
+import TypingPractice from "./typingPractice/TypingPractice.vue";
 
 enum State { PENDING, COMPLETED }
 
