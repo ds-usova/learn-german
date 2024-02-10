@@ -11,7 +11,7 @@
         <b-form-input type="text" ref="inputRef" :disabled="disabled" v-model="input"/>
         <template #append v-if="showAppend">
           <div style="min-width: 25%" class="input-group-text d-flex justify-content-start">
-            <span>{{ appendText }}</span>
+            <span>{{ correctAnswer }}</span>
           </div>
         </template>
       </b-input-group>
@@ -29,23 +29,30 @@
 
 <script setup lang="ts">
 import {State} from "../types/RoundData";
-import {defineModel, ref} from "vue";
+import {computed, ref} from "vue";
 
 interface Props {
   label: string
-  appendText: string
-  disabled: boolean
-  showAppend: boolean
-  state: State
+  correctAnswer: string
 }
 
 const props = defineProps<Props>()
 
-const input = defineModel()
+const input = ref('')
 const inputRef = ref(null)
-const focusOn = () => inputRef.value.focus()
 
-defineExpose({focusOn})
+const state = ref(State.PENDING)
+const disabled = computed(() => state.value === State.CORRECT || state.value === State.SKIP)
+const showAppend = computed(() => state.value === State.SKIP)
+
+const correct = () => {
+  return input.value === props.correctAnswer
+}
+const focusOn = () => inputRef.value.focus()
+const skip = () => state.value = State.SKIP
+const update = () => state.value = correct() ? State.CORRECT : State.WRONG
+
+defineExpose({correct, focusOn, skip, update})
 </script>
 
 <style scoped>

@@ -11,12 +11,8 @@
       </b-row>
 
       <b-row v-for="input in inputs">
-        <input-practice-row v-model="input.value"
+        <input-practice-row :correctAnswer="input.answer"
                             :label="input.label"
-                            :disabled="input.correct() || state === State.SKIP"
-                            :show-append="!input.correct() && state === State.SKIP"
-                            :append-text="input.answer"
-                            :state="input.state()"
                             ref="inputRefs"
         />
       </b-row>
@@ -43,7 +39,7 @@
               </template>
 
               <template v-else>
-                <b-button variant="outline-dark" class="w-25">
+                <b-button @click="submitAnswer" variant="outline-dark" class="w-25">
                   Continue
                 </b-button>
               </template>
@@ -70,24 +66,10 @@ import InputPracticeRow from "./InputPracticeRow.vue";
 class Input {
   label: string
   answer: string
-  value: string
 
-  constructor(label: string, answer: string, value: string) {
+  constructor(label: string, answer: string) {
     this.label = label;
     this.answer = answer;
-    this.value = value;
-  }
-
-  correct(): boolean {
-    return this.answer === this.value
-  }
-
-  state(): State {
-    if (state.value == State.PENDING) {
-      return State.PENDING
-    } else {
-      return this.correct() ? State.CORRECT : State.WRONG
-    }
   }
 }
 
@@ -102,34 +84,36 @@ interface Emits {
 const props = defineProps<Props>()
 const emits = defineEmits<Emits>()
 
-const indexOfInputToFocusOn = ref(0)
-const inputs = props.question.questions.map((it) => new Input(it.question, it.answer, ''))
+const inputs = props.question.questions.map((it) => new Input(it.question, it.answer))
 const inputRefs = ref([])
 const state = ref(State.PENDING)
 
 onMounted(() => {
-  document.addEventListener('keydown', handleKeyboardInput)
   inputRefs.value[0].focusOn()
 })
 
 function checkInputs() {
-  const firstWrongIndex = inputs.findIndex((it) => !it.correct())
-  const allCorrect = firstWrongIndex == -1
+  const firstWrongIndex = inputRefs.value.findIndex((it) => !it.correct())
 
-  indexOfInputToFocusOn.value = firstWrongIndex
-  if (!allCorrect) {
+  state.value = firstWrongIndex == -1 ? State.CORRECT : State.WRONG
+  if (state.value == State.WRONG) {
     inputRefs.value[firstWrongIndex].focusOn()
   }
-  state.value = allCorrect ? State.CORRECT : State.WRONG
-}
 
-function handleKeyboardInput(event) {
-
+  updateInputs()
 }
 
 function skip() {
   state.value = State.SKIP
-  indexOfInputToFocusOn.value = -1
+  inputRefs.value.forEach((it) => it.skip())
+}
+
+function submitAnswer() {
+  emits('submit', {correct: state.value == State.CORRECT})
+}
+
+function updateInputs() {
+  inputRefs.value.forEach((it) => it.update())
 }
 </script>
 
