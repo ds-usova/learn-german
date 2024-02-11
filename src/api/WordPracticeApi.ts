@@ -132,6 +132,10 @@ export default new class WordPracticeApi {
                 translation: 'book',
                 answer: 'das Buch'
             },
+            {
+                translation: 'to go',
+                answer: 'gehen'
+            },
         ]
     }
 

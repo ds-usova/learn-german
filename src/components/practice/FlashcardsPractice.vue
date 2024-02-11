@@ -2,7 +2,7 @@
   <b-card footer-tag="footer" align="">
     <b-row>
       <div class="p-3 text-center">
-        <span>
+        <span class="question-font">
           {{ question.text }}
         </span>
       </div>
