@@ -7,7 +7,7 @@ const routes = [
     {path: "/practice", name: "practiceList", component: () => import('../pages/PracticeListPage.vue')},
     {path: "/practice/:id", name: "practice", component: () => import('../pages/PracticePage.vue')},
     {path: "/categories", name: "categories", component: () => import('../pages/CategoriesPage.vue')},
-    {path: "/category/:id", name: "category", component: () => import('../pages/CategoryPage.vue')},
+    {path: "/category/:id", name: "category", component: () => import('../pages/CategoryPage.vue'), props: true},
 ];
 
 const router = createRouter({
