@@ -34,28 +34,32 @@ export default new class WordPracticeApi {
                 categories: [categoryApi.getCategories()[0]],
                 value: 'der Tisch',
                 translation: 'table',
-                example: 'todo'
+                example: 'todo',
+                leoLink: 'https://dict.leo.org/englisch-deutsch/der%20Tisch',
             },
             {
                 id: '2',
                 categories: [categoryApi.getCategories()[0]],
                 value: 'die Tür',
                 translation: 'door',
-                example: 'todo'
+                example: 'todo',
+                leoLink: 'https://dict.leo.org/englisch-deutsch/die%20Tür',
             },
             {
                 id: '3',
                 categories: [categoryApi.getCategories()[0]],
                 value: 'das Buch',
                 translation: 'book',
-                example: 'todo'
+                example: 'todo',
+                leoLink: 'https://dict.leo.org/englisch-deutsch/das%20Buch',
             },
             {
                 id: '4',
                 categories: [categoryApi.getCategories()[1]],
                 value: 'die Schwester',
                 translation: 'sister',
-                example: 'todo'
+                example: 'todo',
+                leoLink: 'https://dict.leo.org/englisch-deutsch/die%20Schwester',
             },
         ]
     }

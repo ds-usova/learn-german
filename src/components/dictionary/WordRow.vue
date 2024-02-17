@@ -1,10 +1,15 @@
 <template>
   <b-tr>
-    <b-td class="col-6" style="font-weight: 500">
+    <b-td class="col-5" style="font-weight: 500">
       <editable-span :value="wordValue" @submit="saveValue" :rules="wordRules"/>
     </b-td>
-    <b-td class="col-6">
+    <b-td class="col-5">
       <editable-span :value="translationValue" @submit="saveTranslation"/>
+    </b-td>
+    <b-td class="d-flex justify-content-end">
+      <b-link class="nav-link" target="_blank" :href="word.leoLink">
+        <font-awesome-icon :icon="['fas', 'paw']"/>
+      </b-link>
     </b-td>
   </b-tr>
 </template>

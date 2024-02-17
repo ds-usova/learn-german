@@ -6,4 +6,5 @@ export interface Word {
     value: string
     translation: string
     example: string
+    leoLink: string
 }
