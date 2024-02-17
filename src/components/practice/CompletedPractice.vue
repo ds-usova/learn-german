@@ -50,8 +50,7 @@ const inProgress = props.result.from - props.result.correctAnswerCount
 const router = useRouter()
 
 function toPractice() {
-  /* todo: add redirect */
-  router.push('/')
+  router.push('/practice')
 }
 </script>
 
