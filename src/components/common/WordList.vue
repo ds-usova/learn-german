@@ -5,7 +5,7 @@
                     type="text"
                     placeholder="Search"
                     v-model="searchValue"
-                    @keyup.enter="filter"
+                    @keyup="filter"
                     id="search"></b-form-input>
       <b-input-group-append v-if="searchMode">
         <b-button @click="addNewWord">Add</b-button>
@@ -63,8 +63,12 @@ function updateTranslation(word: Word, translation: string) {
   emits('update', word)
 }
 
-function filter() {
-  emits('filter', searchValue.value)
+function filter(event) {
+  const empty = event.key === 'Backspace' && searchValue.value.length === 0
+  const filterValue = event.key === 'Enter' && searchValue.value
+  if (empty || filterValue) {
+    emits('filter', searchValue.value)
+  }
 }
 
 function addNewWord() {

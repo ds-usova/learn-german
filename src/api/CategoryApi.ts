@@ -2,7 +2,15 @@ import {Category} from "../model/Category";
 
 export default new class WordPracticeApi {
 
+    getCategoryById(id: string): Category {
+        return this.all().find(it => it.id === id)
+    }
+
     getCategories(): Array<Category> {
+        return this.all()
+    }
+
+    private all(): Array<Category> {
         return [
             {
                 id: '1',

@@ -19,7 +19,8 @@ const words = ref(wordApi.getWordsBy(null))
 
 function create(word: Word) {
   word.categories = []
-  words.value.push(word)
+  const newWord = wordApi.create(word)
+  words.value.unshift(newWord)
 }
 
 function update(word: Word) {

@@ -95,7 +95,7 @@
           </div>
         </b-col>
         <b-col cols="4">
-          <div class="margin--10">
+          <div class="ml--10">
             <span class="default sub-text">Enter</span>
           </div>
         </b-col>

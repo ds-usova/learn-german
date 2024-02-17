@@ -47,8 +47,20 @@
     width: 60% !important;
 }
 
-.margin--10 {
+.w-40 {
+    width: 40% !important;
+}
+
+.ml--10 {
     margin-left: -10%;
+}
+
+.ml--2 {
+    margin-left: -2%;
+}
+
+.ml-13 {
+    margin-left: 13%;
 }
 
 .clickable {
