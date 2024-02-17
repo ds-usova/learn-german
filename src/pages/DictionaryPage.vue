@@ -3,47 +3,31 @@
     <b-row>
       <Header/>
     </b-row>
-    <b-row>
-      <b-input-group>
-        <b-form-input ref="search"
-                      type="text"
-                      placeholder="Search"
-                      v-model="searchValue"
-                      id="search"></b-form-input>
-        <b-input-group-append v-if="searchMode">
-          <b-button @click="addNewWord">Add</b-button>
-        </b-input-group-append>
-      </b-input-group>
 
-      <BFormText id="search">Use '/' to separate the word and the translation.</BFormText>
-    </b-row>
-
-    <b-row>
-      <b-table-simple>
-        <b-tbody>
-          <word-row v-for="row in filteredWords" :word="row.word" :translation="row.translation"/>
-        </b-tbody>
-      </b-table-simple>
-    </b-row>
+    <word-list :words="words" @create="create" @update="update" @filter="filter"/>
   </b-container>
 </template>
 
 <script setup lang="ts">
 import Header from "../components/common/Header.vue";
-import {computed, ref} from "vue";
-import WordRow from "../components/dictionary/WordRow.vue";
+import WordList from "../components/common/WordList.vue";
+import {ref} from "vue";
+import wordApi from "../api/WordApi";
+import {Word} from "../model/Word";
 
-const search = ref(null)
-const searchValue = ref('')
-const searchMode = computed(() => searchValue.value.trim().length > 0)
-const words = ref([])
-const filteredWords = computed(() => words.value.filter(it => it.word.includes(searchValue.value)))
+const words = ref(wordApi.getWordsBy(null))
 
-function addNewWord() {
-  const wordTranslation = searchValue.value.split('/')
-  words.value.push({word: wordTranslation[0], translation: wordTranslation[1]})
-  searchValue.value = ''
-  search.value.focus()
+function create(word: Word) {
+  word.categories = []
+  words.value.push(word)
+}
+
+function update(word: Word) {
+  wordApi.update(word)
+}
+
+function filter(value: string) {
+  words.value = wordApi.getWordsBy({word: value})
 }
 </script>
 
