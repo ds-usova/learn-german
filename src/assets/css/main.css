@@ -63,6 +63,15 @@
     margin-left: 13%;
 }
 
+.mr-2 {
+    margin-right: 2% !important;
+}
+
 .clickable {
     cursor: pointer;
+}
+
+.required:after {
+    content:"*";
+    color: red;
 }

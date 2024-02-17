@@ -2,6 +2,12 @@ import {Category} from "../model/Category";
 
 export default new class WordPracticeApi {
 
+    create(category: Category): Category {
+        console.log('creating category...')
+        category.id = '' + Math.floor(Math.random() * 1000)
+        return category
+    }
+
     getCategoryById(id: string): Category {
         return this.all().find(it => it.id === id)
     }
