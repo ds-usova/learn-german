@@ -21,17 +21,19 @@
 <script setup lang="ts">
 import Header from "../components/common/Header.vue";
 import PracticeTemplate from "../components/practice/PracticeTemplate.vue";
-import {useRoute} from "vue-router";
 import {onMounted, ref} from "vue";
 import wordPracticeApi from "../api/WordPracticeApi";
 
-const route = useRoute()
-const id = String(route.params.id)
-const round = ref({})
+interface Props {
+  id: string
+}
+
+const props = defineProps<Props>()
 const loaded = ref(false)
+const round = ref({})
 
 onMounted(() => {
-  round.value = wordPracticeApi.getPracticeRound(id)
+  round.value = wordPracticeApi.getPracticeRound(props.id)
   loaded.value = true
 })
 </script>
