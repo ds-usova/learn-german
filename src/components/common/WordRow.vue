@@ -6,7 +6,13 @@
     <b-td class="col-5">
       <editable-span :value="translationValue" @submit="saveTranslation"/>
     </b-td>
-    <b-td class="d-flex justify-content-end">
+    <b-td class="d-flex justify-content-end gap-3">
+      <span class="grey">
+        <router-link class="nav-link sub-text" :to="{ name: 'category', params: { id: word.category.id }}">
+          {{ word.category.name }}
+        </router-link>
+      </span>
+
       <b-link class="nav-link" target="_blank" :href="word.leoLink">
         <font-awesome-icon :icon="['fas', 'paw']"/>
       </b-link>

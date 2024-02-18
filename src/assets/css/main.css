@@ -75,3 +75,7 @@
     content:"*";
     color: red;
 }
+
+.grey {
+    color: grey;
+}
