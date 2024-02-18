@@ -10,10 +10,11 @@
         </b-col>
       </b-row>
 
-      <b-row v-for="input in inputs">
+      <b-row v-for="(input, index) in inputs">
         <input-practice-row :correctAnswer="input.answer"
                             :label="input.label"
                             ref="inputRefs"
+                            @focus="focusedIndex = index"
         />
       </b-row>
 
@@ -87,10 +88,21 @@ const emits = defineEmits<Emits>()
 const inputs = props.question.questions.map((it) => new Input(it.question, it.answer))
 const inputRefs = ref([])
 const state = ref(State.PENDING)
+const focusedIndex = ref(0)
 
 onMounted(() => {
   inputRefs.value[0].focusOn()
+  focusedIndex.value = 0
+  document.addEventListener('keydown', handleKeyboardInput)
 })
+
+function handleKeyboardInput(event) {
+  const key = event.key
+  if (key === 'Backspace' && focusedIndex.value > 0 && inputRefs.value[focusedIndex.value].empty()) {
+    event.preventDefault()
+    inputRefs.value[focusedIndex.value - 1].focusOn()
+  }
+}
 
 function checkInputs() {
   const firstWrongIndex = inputRefs.value.findIndex((it) => !it.correct())
