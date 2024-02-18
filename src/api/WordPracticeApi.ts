@@ -4,8 +4,11 @@ import {
     MultipleChoiceQuestion,
     Practice,
     PracticeRound,
-    PracticeType, TypingQuestion
+    PracticeType,
+    TypingQuestion
 } from "../model/Practice";
+import {Category} from "../model/Category";
+import wordApi from "./WordApi";
 
 export default new class WordPracticeApi {
 
@@ -13,9 +16,9 @@ export default new class WordPracticeApi {
         return [this.articlePractice(), this.flashcardPractice(), this.presentSimplePractice(), this.typingPractice()]
     }
 
-    getPracticeRound(id: string): PracticeRound {
+    getPracticeRound(id: string, category: Category): PracticeRound {
         if (id === '1') {
-            return {practice: this.articlePractice(), questions: this.articleQuestions()}
+            return {practice: this.articlePractice(), questions: this.articleQuestions(category)}
         }
 
         if (id === '2') {
@@ -40,12 +43,14 @@ export default new class WordPracticeApi {
         }
     }
 
-    private articleQuestions(): Array<MultipleChoiceQuestion> {
-        return [
-            {text: 'Tisch', options: ['der', 'die', 'das'], correctAnswer: 'der'},
-            {text: 'Tür', options: ['der', 'die', 'das'], correctAnswer: 'die'},
-            {text: 'Buch', options: ['der', 'die', 'das'], correctAnswer: 'das'},
-        ]
+    private articleQuestions(category?: Category): Array<MultipleChoiceQuestion> {
+        const allWords = wordApi.getWordsBy({categoryId: category?.id})
+        const allOptions = ['der', 'die', 'das']
+        return allWords.map(it => ({
+            text: it.value.split(" ")[1],
+            options: allOptions,
+            correctAnswer: it.value.split(" ")[0]
+        }))
     }
 
     // flashcard

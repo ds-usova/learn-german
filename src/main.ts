@@ -10,10 +10,13 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue-next/dist/bootstrap-vue-next.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 import './assets/css/main.css'
+import {createPinia} from "pinia";
 
 library.add(faArrowRight, faArrowLeft, faCheck, faXmark, faSpinner, faPaw)
 
 const app = createApp(App)
+const pinia = createPinia()
+app.use(pinia)
 app.use(router)
 app.use(BootstrapVueNext)
 app.component('font-awesome-icon', FontAwesomeIcon)

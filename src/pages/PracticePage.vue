@@ -23,17 +23,20 @@ import Header from "../components/common/Header.vue";
 import PracticeTemplate from "../components/practice/PracticeTemplate.vue";
 import {onMounted, ref} from "vue";
 import wordPracticeApi from "../api/WordPracticeApi";
+import {useCategoryStore} from "../store/categoryData";
 
 interface Props {
   id: string
 }
+
+const categoryStore = useCategoryStore()
 
 const props = defineProps<Props>()
 const loaded = ref(false)
 const round = ref({})
 
 onMounted(() => {
-  round.value = wordPracticeApi.getPracticeRound(props.id)
+  round.value = wordPracticeApi.getPracticeRound(props.id, categoryStore.category)
   loaded.value = true
 })
 </script>
