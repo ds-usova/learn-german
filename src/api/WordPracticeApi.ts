@@ -9,6 +9,7 @@ import {
 } from "../model/Practice";
 import {Category} from "../model/Category";
 import wordApi from "./WordApi";
+import {PracticeResult} from "../components/practice/types/RoundData";
 
 export default new class WordPracticeApi {
 
@@ -32,6 +33,10 @@ export default new class WordPracticeApi {
         if (id === '4') {
             return {practice: this.typingPractice(), questions: this.typingQuestion()}
         }
+    }
+
+    submitPracticeResult(practiceResult: PracticeResult) {
+        console.log('submitting practice result...')
     }
 
     // article

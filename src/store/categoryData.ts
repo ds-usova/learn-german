@@ -6,4 +6,7 @@ export const useCategoryStore = defineStore('category', {
             category: null
         }
     },
+    persist: {
+        storage: sessionStorage
+    }
 })

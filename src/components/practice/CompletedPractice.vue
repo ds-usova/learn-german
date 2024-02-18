@@ -19,8 +19,8 @@
 
     <b-row>
       <div class="d-flex justify-content-center mt-3">
-        <div class="col-3"> <!-- todo: add redirect -->
-          <b-button class="w-100" variant="outline-dark">Next round</b-button>
+        <div class="col-3">
+          <b-button class="w-100" variant="outline-dark" @click="nextRound">Next round</b-button>
         </div>
       </div>
     </b-row>
@@ -51,6 +51,10 @@ const router = useRouter()
 
 function toPractice() {
   router.push('/practice')
+}
+
+function nextRound() {
+  location.reload()
 }
 </script>
 

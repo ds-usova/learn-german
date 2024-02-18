@@ -42,6 +42,7 @@ import CompletedPractice from "./CompletedPractice.vue"
 import {PracticeRound, PracticeType} from "../../model/Practice";
 import MultipleInputPractice from "./multipleInputPractice/MultipleInputPractice.vue";
 import TypingPractice from "./typingPractice/TypingPractice.vue";
+import wordPracticeApi from "../../api/WordPracticeApi";
 
 enum State { PENDING, COMPLETED }
 
@@ -67,6 +68,7 @@ function updateResults(answerSubmitData: AnswerSubmitData) {
   if (currentCount.value == roundCount) {
     state.value = State.COMPLETED
     result.value = new PracticeResult(correctAnswerCount.value, roundCount)
+    wordPracticeApi.submitPracticeResult(result.value)
   } else {
     currentCount.value++
   }
