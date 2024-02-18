@@ -20,7 +20,7 @@
     <b-col cols="1">
         <span>
            <font-awesome-icon v-if="state === State.PENDING" class="default" :icon="['fas', 'spinner']"/>
-           <font-awesome-icon v-else-if="state === State.CORRECT" class="correct" :icon="['fas', 'check']"/>
+           <font-awesome-icon v-else-if="state === State.CORRECT || prevState === State.CORRECT" class="correct" :icon="['fas', 'check']"/>
            <font-awesome-icon v-else class="wrong" :icon="['fas', 'xmark']"/>
         </span>
     </b-col>
@@ -46,6 +46,7 @@ const emits = defineEmits<Emits>()
 const input = ref('')
 const inputRef = ref(null)
 
+const prevState = ref(State.PENDING)
 const state = ref(State.PENDING)
 const disabled = computed(() => state.value === State.CORRECT || state.value === State.SKIP)
 const showAppend = computed(() => state.value === State.SKIP)
@@ -54,9 +55,14 @@ const correct = () => {
   return input.value.trim() === props.correctAnswer
 }
 const focusOn = () => inputRef.value.focus()
-const skip = () => state.value = State.SKIP
-const update = () => state.value = correct() ? State.CORRECT : State.WRONG
+const skip = () => updateState(State.SKIP)
+const update = () => updateState(correct() ? State.CORRECT : State.WRONG)
 const empty = () => input.value.length === 0
+
+function updateState(newState: State) {
+  prevState.value = state.value
+  state.value = newState
+}
 
 defineExpose({correct, focusOn, skip, update, empty})
 </script>

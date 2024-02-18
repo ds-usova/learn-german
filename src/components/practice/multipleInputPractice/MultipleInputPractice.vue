@@ -101,6 +101,8 @@ function handleKeyboardInput(event) {
   if (key === 'Backspace' && focusedIndex.value > 0 && inputRefs.value[focusedIndex.value].empty()) {
     event.preventDefault()
     inputRefs.value[focusedIndex.value - 1].focusOn()
+  } else if (key === 'Enter' && (state.value === State.CORRECT || state.value === State.SKIP)) {
+    submitAnswer()
   }
 }
 
@@ -108,7 +110,7 @@ function checkInputs() {
   const firstWrongIndex = inputRefs.value.findIndex((it) => !it.correct())
 
   state.value = firstWrongIndex == -1 ? State.CORRECT : State.WRONG
-  if (state.value == State.WRONG) {
+  if (state.value === State.WRONG) {
     inputRefs.value[firstWrongIndex].focusOn()
   }
 
