@@ -4,7 +4,7 @@
       <Header/>
     </b-row>
 
-    <word-list :words="words" @create="create" @update="update" @filter="filter"/>
+    <word-list :words="words" @create="create" @update="update" :categories="categories" @filter="filter"/>
   </b-container>
 </template>
 
@@ -14,8 +14,10 @@ import WordList from "../components/common/WordList.vue";
 import {ref} from "vue";
 import wordApi from "../api/WordApi";
 import {Word} from "../model/Word";
+import categoryApi from "../api/CategoryApi";
 
 const words = ref(wordApi.getWordsBy(null))
+const categories = ref(categoryApi.getCategories())
 
 function create(word: Word) {
   word.category = undefined

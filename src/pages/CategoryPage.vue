@@ -19,7 +19,7 @@
       </div>
     </b-row>
 
-    <word-list :words="words" @create="create" @update="update" @filter="filter"/>
+    <word-list :words="words" @create="create" @update="update" :categories="categories" @filter="filter"/>
   </b-container>
 </template>
 
@@ -41,6 +41,8 @@ const router = useRouter()
 
 const category = categoryApi.getCategoryById(props.id)
 const words = ref(wordApi.getWordsBy({categoryId: props.id}))
+const categories = categoryApi.getCategories()
+
 const count = computed(() => words.value.length)
 
 function create(word: Word) {

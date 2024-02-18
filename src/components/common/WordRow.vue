@@ -1,18 +1,18 @@
 <template>
   <b-tr>
     <b-td class="col-5" style="font-weight: 500">
-      <editable-span :value="wordValue" @submit="saveValue" :rules="wordRules"/>
+      <editable-input :value="wordValue" @submit="saveValue" :rules="wordRules"/>
     </b-td>
     <b-td class="col-5">
-      <editable-span :value="translationValue" @submit="saveTranslation"/>
+      <editable-input :value="translationValue" @submit="saveTranslation"/>
     </b-td>
     <b-td class="d-flex justify-content-end gap-3">
-      <span class="grey" v-if="word.category">
-        <router-link class="nav-link sub-text" :to="{ name: 'category', params: { id: word.category.id }}">
-          {{ word.category.name }}
-        </router-link>
-      </span>
-
+      <editable-select :value="category"
+                       @submit="saveCategory"
+                       :options="categories"
+                       :default-option-text="'All'"
+                       :messageMapper="(it) => it.name"
+                       :to="word.category?.id ? { name: 'category', params: { id: word.category.id }} : {}"/>
       <b-link class="nav-link" target="_blank" :href="word.leoLink">
         <font-awesome-icon :icon="['fas', 'paw']"/>
       </b-link>
@@ -21,16 +21,20 @@
 </template>
 
 <script setup lang="ts">
-import EditableSpan from "./EditableSpan.vue";
+import EditableInput from "./EditableInput.vue";
 import {ref} from "vue";
 import {required} from '@vuelidate/validators'
 import {Word} from "../../model/Word";
+import EditableSelect from "./EditableSelect.vue";
+import {Category} from "../../model/Category";
 
 interface Props {
   word: Word
+  categories: Array<Category>
 }
 
 interface Emits {
+  (e: 'update', word: Word)
   (e: 'saveValue', value: string),
   (e: 'saveTranslation', translation: string),
 }
@@ -40,18 +44,28 @@ const emits = defineEmits<Emits>()
 
 const wordValue = ref(props.word.value)
 const translationValue = ref(props.word.translation)
+const category = ref(props.word.category)
+
 const wordRules = {
   input: {required}
 }
 
 function saveValue(value: string) {
   wordValue.value = value
-  emits('saveValue', value)
+  props.word.value = value
+  emits('update', props.word)
 }
 
 function saveTranslation(value: string) {
   translationValue.value = value
-  emits('saveTranslation', value)
+  props.word.translation = value
+  emits('update', props.word)
+}
+
+function saveCategory(value: Category) {
+  category.value = value
+  props.word.category = value
+  emits('update', props.word)
 }
 </script>
 

@@ -21,8 +21,8 @@
         <word-row v-for="word in words"
                   :key="word.id"
                   :word="word"
-                  @save-value="(value) => updateValue(word, value)"
-                  @save-translation="(value) => updateTranslation(word, value)"
+                  :categories="categories"
+                  @update="update"
         />
       </b-tbody>
     </b-table-simple>
@@ -33,9 +33,11 @@
 import {Word} from "../../model/Word";
 import {computed, ref} from "vue";
 import WordRow from "./WordRow.vue";
+import {Category} from "../../model/Category";
 
 interface Props {
   words: Array<Word>
+  categories: Array<Category>
 }
 
 interface Emits {
@@ -53,13 +55,7 @@ const searchRef = ref(null)
 const searchValue = ref('')
 const searchMode = computed(() => searchValue.value.trim().length > 0)
 
-function updateValue(word: Word, value: string) {
-  word.value = value
-  emits('update', word)
-}
-
-function updateTranslation(word: Word, translation: string) {
-  word.translation = translation
+function update(word: Word) {
   emits('update', word)
 }
 

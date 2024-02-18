@@ -79,3 +79,7 @@
 .grey {
     color: grey;
 }
+
+.italic {
+    font-style: italic;
+}

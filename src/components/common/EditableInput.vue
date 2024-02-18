@@ -48,8 +48,10 @@ async function submit() {
 }
 
 function cancel() {
-  input.value = props.value
-  toReadMode()
+  if (editMode.value) {
+    input.value = props.value
+    toReadMode()
+  }
 }
 
 function toReadMode() {
