@@ -44,7 +44,7 @@ const words = ref(wordApi.getWordsBy({categoryId: props.id}))
 const count = computed(() => words.value.length)
 
 function create(word: Word) {
-  word.categories = [category]
+  word.category = category
   words.value.unshift(word)
   wordApi.create(word)
 }

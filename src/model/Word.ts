@@ -2,7 +2,7 @@ import {Category} from "./Category";
 
 export interface Word {
     id: string
-    categories: Array<Category>
+    category?: Category
     value: string
     translation: string
     example: string

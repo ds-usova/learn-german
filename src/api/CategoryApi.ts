@@ -8,7 +8,7 @@ export default new class WordPracticeApi {
         return category
     }
 
-    getCategoryById(id: string): Category | null {
+    getCategoryById(id: string): Category | undefined {
         return this.all().find(it => it.id === id)
     }
 

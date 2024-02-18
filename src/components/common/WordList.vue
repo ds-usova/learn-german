@@ -32,7 +32,7 @@
 <script setup lang="ts">
 import {Word} from "../../model/Word";
 import {computed, ref} from "vue";
-import WordRow from "../dictionary/WordRow.vue";
+import WordRow from "./WordRow.vue";
 
 interface Props {
   words: Array<Word>
@@ -73,7 +73,7 @@ function filter(event) {
 
 function addNewWord() {
   const wordTranslation = searchValue.value.split(separator)
-  emits('create', {id: '', value: wordTranslation[0], translation: wordTranslation[1], example: '', categories: []})
+  emits('create', {id: '', value: wordTranslation[0], translation: wordTranslation[1], example: '', leoLink: ''})
   searchValue.value = ''
   searchRef.value.focus()
 }

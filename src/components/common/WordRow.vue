@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import EditableSpan from "../common/EditableSpan.vue";
+import EditableSpan from "./EditableSpan.vue";
 import {ref} from "vue";
 import {required} from '@vuelidate/validators'
 import {Word} from "../../model/Word";

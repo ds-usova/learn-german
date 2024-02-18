@@ -18,7 +18,7 @@ import {Word} from "../model/Word";
 const words = ref(wordApi.getWordsBy(null))
 
 function create(word: Word) {
-  word.categories = []
+  word.category = undefined
   const newWord = wordApi.create(word)
   words.value.unshift(newWord)
 }
