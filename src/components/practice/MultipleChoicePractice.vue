@@ -14,12 +14,20 @@
               <span v-else>Enter</span>
             </b-col>
             <b-col cols="10">
-              <b-button @click="select(option)"
+              <b-button v-if="!isLast(allOptions, index) || pending"
+                        @click="select(option)"
                         class="w-100"
                         style="text-align: left"
                         :disabled="!pending"
                         :variant="getButtonStyleFor(option)">
                 {{ option }}
+              </b-button>
+              <b-button v-else
+                        @click="submit"
+                        class="w-100"
+                        style="text-align: left"
+                        variant="outline-dark">
+                Continue
               </b-button>
             </b-col>
           </b-row>
@@ -85,9 +93,13 @@ function handleKeyboardInput(event) {
     }
   } else {
     if (event.key === 'Enter') {
-      emits('submit', {correct: state.value == State.CORRECT})
+      submit()
     }
   }
+}
+
+function submit() {
+  emits('submit', {correct: state.value == State.CORRECT})
 }
 
 function findSelectedOption(event): string | null {
