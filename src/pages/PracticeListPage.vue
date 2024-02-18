@@ -15,42 +15,65 @@
       </b-col>
     </b-row>
 
-    <b-row cols="3">
-      <b-col v-for="(practice, index) in practiceList" :key="index">
-        <b-card class="mt-3">
+    <b-row cols="3" class="mt-3">
+      <b-col v-for="(practice, index) in categoryBasedPracticeList" :key="index">
+        <b-card class="mb-3">
           <b-card-title class="text">
-            <router-link class="nav-link" @click="setCategory" :to="{ name: 'practice', params: { id: practice.id }}">
+            <router-link class="nav-link" :to="{ name: 'practice', params: { id: practice.id }}">
               {{ practice.name }}
             </router-link>
           </b-card-title>
         </b-card>
       </b-col>
     </b-row>
+
+    <b-row>
+      <b-col>
+        <hr/>
+      </b-col>
+    </b-row>
+
+    <b-row cols="3" class="mt-3">
+      <b-col v-for="(practice, index) in generalPracticeList" :key="index">
+        <b-card class="mb-3">
+          <b-card-title class="text">
+            <router-link class="nav-link" :to="{ name: 'practice', params: { id: practice.id }}">
+              {{ practice.name }}
+            </router-link>
+          </b-card-title>
+        </b-card>
+      </b-col>
+    </b-row>
+    <b-row>
+
+    </b-row>
   </b-container>
 </template>
-
 <script setup lang="ts">
 import Header from "../components/common/Header.vue";
 import wordPracticeApi from "../api/WordPracticeApi";
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 import categoryApi from "../api/CategoryApi";
 import {useCategoryStore} from "../store/categoryData";
 
 const categoryStore = useCategoryStore()
 
-const practiceList = ref([])
+const categoryBasedPracticeList = ref([])
+const generalPracticeList = ref([])
 const selectedCategory = ref(categoryStore.category)
 const categories = ref([])
 
 onMounted(() => {
-  practiceList.value = wordPracticeApi.getPracticeList()
+  categoryBasedPracticeList.value = wordPracticeApi.getCategoryBasedPracticeList()
+  generalPracticeList.value = wordPracticeApi.getGeneralPracticeList()
   categories.value = categoryApi.getCategories()
 })
 
-function setCategory() {
+watch(selectedCategory, () => {
   categoryStore.category = selectedCategory.value
-}
+})
 </script>
+
 
 <style scoped>
 

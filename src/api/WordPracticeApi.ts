@@ -13,8 +13,12 @@ import {PracticeResult} from "../components/practice/types/RoundData";
 
 export default new class WordPracticeApi {
 
-    getPracticeList(): Array<Practice> {
+    getCategoryBasedPracticeList(): Array<Practice> {
         return [this.articlePractice(), this.flashcardPractice(), this.presentSimplePractice(), this.typingPractice()]
+    }
+
+    getGeneralPracticeList(): Array<Practice> {
+        return [this.numberPractice()]
     }
 
     getPracticeRound(id: string, category: Category): PracticeRound {
@@ -32,6 +36,10 @@ export default new class WordPracticeApi {
 
         if (id === '4') {
             return {practice: this.typingPractice(), questions: this.typingQuestion()}
+        }
+
+        if (id === '5') {
+            return {practice: this.numberPractice(), questions: this.numberQuestions()}
         }
     }
 
@@ -145,6 +153,41 @@ export default new class WordPracticeApi {
             {
                 translation: 'to go',
                 answer: 'gehen'
+            },
+        ]
+    }
+
+    // numbers
+    private numberPractice(): Practice {
+        return {
+            id: '5',
+            name: 'Numbers',
+            practiceType: PracticeType.MULTIPLE_INPUT
+        }
+    }
+
+    private numberQuestions(): Array<InputQuestion> {
+        return [
+            {
+                text: '0 - 10', questions: [
+                    {question: '1', answer: 'eins'},
+                    {question: '4', answer: 'vier'},
+                    {question: '7', answer: 'sieben'},
+                ]
+            },
+            {
+                text: '11 - 99', questions: [
+                    {question: '11', answer: 'elf'},
+                    {question: '20', answer: 'zwanzig'},
+                    {question: '14', answer: 'vierzehn'},
+                ]
+            },
+            {
+                text: '> 100', questions: [
+                    {question: '200', answer: 'zweihundert'},
+                    {question: '1001', answer: 'eintausendeins'},
+                    {question: '3000', answer: 'dreitausend'},
+                ]
             },
         ]
     }
