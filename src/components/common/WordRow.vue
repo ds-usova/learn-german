@@ -6,16 +6,18 @@
     <b-td class="col-5">
       <editable-input :value="translationValue" @submit="saveTranslation"/>
     </b-td>
-    <b-td class="d-flex justify-content-end gap-3">
-      <editable-select :value="category"
-                       @submit="saveCategory"
-                       :options="categories"
-                       :default-option-text="'All'"
-                       :messageFormatter="(it) => it?.name"
-                       :to="word.category?.id ? { name: 'category', params: { id: word.category.id }} : {}"/>
-      <b-link class="nav-link" target="_blank" :href="word.leoLink">
-        <font-awesome-icon :icon="['fas', 'paw']"/>
-      </b-link>
+    <b-td>
+      <div class="d-flex justify-content-end gap-3">
+        <editable-select :value="category"
+                         @submit="saveCategory"
+                         :options="categories"
+                         :default-option-text="'All'"
+                         :messageFormatter="(it) => it?.name"
+                         :to="word.category?.id ? { name: 'category', params: { id: word.category.id }} : {}"/>
+        <b-link class="nav-link" target="_blank" :href="word.leoLink">
+          <font-awesome-icon :icon="['fas', 'paw']"/>
+        </b-link>
+      </div>
     </b-td>
   </b-tr>
 </template>
