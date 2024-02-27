@@ -1,9 +1,5 @@
 <template>
-  <b-container>
-    <b-row>
-      <Header/>
-    </b-row>
-
+  <page>
     <b-row class="d-flex justify-content-end">
       <b-col cols="2">
         <b-form-select v-model="selectedCategory">
@@ -47,14 +43,14 @@
     <b-row>
 
     </b-row>
-  </b-container>
+  </page>
 </template>
 <script setup lang="ts">
-import Header from "../components/common/Header.vue";
 import wordPracticeApi from "../api/WordPracticeApi";
 import {onMounted, ref, watch} from "vue";
 import categoryApi from "../api/CategoryApi";
 import {useCategoryStore} from "../store/categoryData";
+import Page from "./Page.vue";
 
 const categoryStore = useCategoryStore()
 
@@ -66,7 +62,7 @@ const categories = ref([])
 onMounted(() => {
   categoryBasedPracticeList.value = wordPracticeApi.getCategoryBasedPracticeList()
   generalPracticeList.value = wordPracticeApi.getGeneralPracticeList()
-  categories.value = categoryApi.getCategories()
+  categories.value = categoryApi.getUserCategories()
 })
 
 watch(selectedCategory, () => {

@@ -12,18 +12,24 @@ export default new class WordPracticeApi {
         return this.all().find(it => it.id === id)
     }
 
-    getCategories(): Array<Category> {
+    getUserCategories(): Array<Category> {
         return this.all()
+    }
+
+    getAllCategories(): Array<Category> {
+        const defaultCategory = {
+            id: '0',
+            name: 'No category',
+            pictureUrl: 'https://i.pinimg.com/736x/46/1a/23/461a23cdae520158fc6b48d6a9397bcc.jpg',
+            wordCount: 3
+        }
+        const categories = this.getUserCategories()
+        categories.unshift(defaultCategory)
+        return categories
     }
 
     private all(): Array<Category> {
         return [
-            {
-                id: '0',
-                name: 'No category',
-                pictureUrl: 'https://i.pinimg.com/736x/46/1a/23/461a23cdae520158fc6b48d6a9397bcc.jpg',
-                wordCount: 3
-            },
             {
                 id: '1',
                 name: 'German A1',

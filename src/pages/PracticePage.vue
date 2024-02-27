@@ -1,9 +1,5 @@
 <template>
-  <b-container>
-    <b-row>
-      <Header/>
-    </b-row>
-
+  <page>
     <b-row class="justify-content-center" v-if="loaded">
       <b-col cols="7">
         <practice-template :round-data="round"/>
@@ -15,15 +11,15 @@
         <b-spinner></b-spinner>
       </b-col>
     </b-row>
-  </b-container>
+  </page>
 </template>
 
 <script setup lang="ts">
-import Header from "../components/common/Header.vue";
 import PracticeTemplate from "../components/practice/PracticeTemplate.vue";
 import {onMounted, ref} from "vue";
 import wordPracticeApi from "../api/WordPracticeApi";
 import {useCategoryStore} from "../store/categoryData";
+import Page from "./Page.vue";
 
 interface Props {
   id: string

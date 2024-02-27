@@ -1,9 +1,5 @@
 <template>
-  <b-container>
-    <b-row>
-      <Header/>
-    </b-row>
-
+  <page>
     <b-row>
       <div class="mb-3 d-flex align-items-center justify-content-start">
         <b-col cols="1">
@@ -18,19 +14,18 @@
         </b-col>
       </div>
     </b-row>
-
     <word-list :words="words" @create="create" @update="update" :categories="categories" @filter="filter"/>
-  </b-container>
+  </page>
 </template>
 
 <script setup lang="ts">
-import Header from "../components/common/Header.vue";
 import wordApi from "../api/WordApi";
 import {computed, ref} from "vue";
 import {Word} from "../model/Word";
 import WordList from "../components/common/WordList.vue"
 import categoryApi from "../api/CategoryApi";
 import {useRouter} from "vue-router";
+import Page from "./Page.vue";
 
 interface Props {
   id: string
@@ -41,7 +36,7 @@ const router = useRouter()
 
 const category = categoryApi.getCategoryById(props.id)
 const words = ref(wordApi.getWordsBy({categoryId: props.id}))
-const categories = categoryApi.getCategories()
+const categories = categoryApi.getUserCategories()
 
 const count = computed(() => words.value.length)
 

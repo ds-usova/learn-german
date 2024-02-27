@@ -31,7 +31,7 @@ export default new class WordPracticeApi {
         return [
             {
                 id: '1',
-                category: categoryApi.getCategories()[0],
+                category: categoryApi.getUserCategories()[0],
                 value: 'der Tisch',
                 translation: 'table',
                 example: 'todo',
@@ -39,7 +39,7 @@ export default new class WordPracticeApi {
             },
             {
                 id: '2',
-                category: categoryApi.getCategories()[0],
+                category: categoryApi.getUserCategories()[0],
                 value: 'die Tür',
                 translation: 'door',
                 example: 'todo',
@@ -47,7 +47,7 @@ export default new class WordPracticeApi {
             },
             {
                 id: '3',
-                category: categoryApi.getCategories()[0],
+                category: categoryApi.getUserCategories()[0],
                 value: 'das Buch',
                 translation: 'book',
                 example: 'todo',
@@ -55,7 +55,7 @@ export default new class WordPracticeApi {
             },
             {
                 id: '4',
-                category: categoryApi.getCategories()[1],
+                category: categoryApi.getUserCategories()[1],
                 value: 'die Schwester',
                 translation: 'sister',
                 example: 'todo',
