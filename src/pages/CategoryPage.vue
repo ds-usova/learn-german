@@ -53,6 +53,12 @@ function create(word: Word) {
 
 function update(word: Word) {
   wordApi.update(word)
+  if (word.category?.id !== category?.id) {
+    const index = words.value.indexOf(word)
+    if (index !== -1) {
+      words.value.splice(index, 1)
+    }
+  }
 }
 
 function filter(value: string) {
