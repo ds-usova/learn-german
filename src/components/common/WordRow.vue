@@ -11,7 +11,7 @@
                        @submit="saveCategory"
                        :options="categories"
                        :default-option-text="'All'"
-                       :messageMapper="(it) => it.name"
+                       :messageFormatter="(it) => it?.name"
                        :to="word.category?.id ? { name: 'category', params: { id: word.category.id }} : {}"/>
       <b-link class="nav-link" target="_blank" :href="word.leoLink">
         <font-awesome-icon :icon="['fas', 'paw']"/>
