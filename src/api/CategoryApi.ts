@@ -9,7 +9,7 @@ export default new class WordPracticeApi {
     }
 
     getCategoryById(id: string): Category | undefined {
-        return this.all().find(it => it.id === id)
+        return this.getAllCategories().find(it => it.id === id)
     }
 
     getUserCategories(): Array<Category> {
