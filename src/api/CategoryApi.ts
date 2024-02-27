@@ -19,6 +19,12 @@ export default new class WordPracticeApi {
     private all(): Array<Category> {
         return [
             {
+                id: '0',
+                name: 'No category',
+                pictureUrl: 'https://i.pinimg.com/736x/46/1a/23/461a23cdae520158fc6b48d6a9397bcc.jpg',
+                wordCount: 3
+            },
+            {
                 id: '1',
                 name: 'German A1',
                 pictureUrl: 'https://static.vecteezy.com/system/resources/previews/003/331/310/original/germany-map-silhouette-with-flag-on-white-background-free-vector.jpg',
