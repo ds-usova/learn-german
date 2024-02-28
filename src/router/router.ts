@@ -8,6 +8,11 @@ const routes = [
     {path: "/practice/:id", name: "practice", component: () => import('../pages/PracticePage.vue'), props: true},
     {path: "/categories", name: "categories", component: () => import('../pages/CategoriesPage.vue')},
     {path: "/category/:id", name: "category", component: () => import('../pages/CategoryPage.vue'), props: true},
+    {
+        path: "/resource-management",
+        name: "resource-management",
+        component: () => import('../pages/ResourceManagementPage.vue')
+    },
 ];
 
 const router = createRouter({
