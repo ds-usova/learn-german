@@ -3,7 +3,8 @@ import App from './App.vue'
 import BootstrapVueNext from 'bootstrap-vue-next'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import {library} from '@fortawesome/fontawesome-svg-core'
-import {faArrowLeft, faArrowRight, faCheck, faPaw, faSpinner, faXmark} from '@fortawesome/free-solid-svg-icons'
+import {faArrowLeft, faArrowRight, faCheck, faPaw, faSpinner, faXmark, faTrash} from '@fortawesome/free-solid-svg-icons'
+import {faPenToSquare} from '@fortawesome/free-regular-svg-icons'
 import router from './router/router'
 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -13,7 +14,7 @@ import './assets/css/main.css'
 import {createPinia} from "pinia";
 import piniaPluginPersistedState from "pinia-plugin-persistedstate"
 
-library.add(faArrowRight, faArrowLeft, faCheck, faXmark, faSpinner, faPaw)
+library.add(faArrowRight, faArrowLeft, faCheck, faXmark, faSpinner, faPaw, faPenToSquare, faTrash)
 
 const app = createApp(App)
 const pinia = createPinia()

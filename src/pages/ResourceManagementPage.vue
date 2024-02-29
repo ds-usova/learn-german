@@ -2,21 +2,17 @@
   <page>
     <b-row>
       <b-col cols="2">
-        <b-card>
-          <b-list-group>
-            <b-list-group-item v-for="(tab, index) in tabs"
-                               button
-                               @click="select(index)"
-                               :active="currentTab === tab.type">
-              {{ tab.text }}
-            </b-list-group-item>
-          </b-list-group>
-        </b-card>
+        <b-list-group>
+          <b-list-group-item v-for="(tab, index) in tabs"
+                             button
+                             @click="select(index)"
+                             :active="currentTab === tab.type">
+            {{ tab.text }}
+          </b-list-group-item>
+        </b-list-group>
       </b-col>
       <b-col cols="10">
-        <b-card class="p-2">
-          <edit-categories v-if="currentTab === TabType.CATEGORY"/>
-        </b-card>
+        <edit-categories v-if="currentTab === TabType.CATEGORY"/>
       </b-col>
     </b-row>
   </page>

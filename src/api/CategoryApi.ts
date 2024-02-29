@@ -8,6 +8,15 @@ export default new class WordPracticeApi {
         return category
     }
 
+    update(category: Category): Category {
+        console.log('updating category...')
+        return category
+    }
+
+    delete(category: Category) {
+        console.log('deleting category...')
+    }
+
     getCategoryById(id: string): Category | undefined {
         return this.getAllCategories().find(it => it.id === id)
     }
