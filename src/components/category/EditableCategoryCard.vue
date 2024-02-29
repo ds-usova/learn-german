@@ -39,9 +39,10 @@
   <b-modal ref="deletionModal" id="delete-category-modal" title="Delete category?" @hide.prevent hide-header-close>
     <p>
       The category '{{ editableCategory.name }}' contains {{ editableCategory.wordCount }}
-      {{ editableCategory.wordCount === 1 ? 'word' : 'words' }}. Are you sure you
-      want to delete it?
+      {{ editableCategory.wordCount === 1 ? 'word' : 'words' }}.
     </p>
+
+    <p>Are you sure you want to delete it?</p>
 
     <template #footer>
       <b-button @click="abortDeletion" variant="link" class="nav-link mr-2">
