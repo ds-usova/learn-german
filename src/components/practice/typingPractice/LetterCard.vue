@@ -39,7 +39,6 @@ function onClick() {
 
 <style scoped>
 div {
-  color: #ffffff;
   font-weight: bold;
 }
 
@@ -50,6 +49,7 @@ div {
 
 .default {
   background: #f5f2f2;
+  color: black !important;
 }
 
 .active {
@@ -58,6 +58,7 @@ div {
 
 .readonly, .badge {
   background: #383F51 !important;
+  color: white;
 }
 
 .badge {

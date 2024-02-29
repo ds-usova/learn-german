@@ -32,9 +32,10 @@
 
 <script setup lang="ts">
 import {Word} from "../../model/Word";
-import {computed, ref} from "vue";
+import {computed, ref, watch} from "vue";
 import WordRow from "./WordRow.vue";
 import {Category} from "../../model/Category";
+import {useKeyboardStore} from "../../store/keyboardStore";
 
 interface Props {
   words: Array<Word>
@@ -50,6 +51,9 @@ interface Emits {
 
 const props = defineProps<Props>()
 const emits = defineEmits<Emits>()
+
+const keyboard = useKeyboardStore()
+const keyboardSymbolVersion = computed(() => keyboard.version)
 
 const separator = '='
 
@@ -79,6 +83,12 @@ function addNewWord() {
 function deleteWord(word: Word) {
   emits('delete', word)
 }
+
+watch(keyboardSymbolVersion, () => {
+  console.log(keyboard.symbol)
+  searchValue.value = searchValue.value + keyboard.symbol
+  searchRef.value.focus()
+})
 </script>
 
 <style scoped>

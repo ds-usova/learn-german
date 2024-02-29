@@ -1,7 +1,5 @@
 <template>
-  <b-container id="app" fluid>
-    <router-view/>
-  </b-container>
+  <router-view/>
 </template>
 
 <script setup lang="ts">

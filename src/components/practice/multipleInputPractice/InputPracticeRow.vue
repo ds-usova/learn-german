@@ -20,7 +20,8 @@
     <b-col cols="1">
         <span>
            <font-awesome-icon v-if="state === State.PENDING" class="default" :icon="['fas', 'spinner']"/>
-           <font-awesome-icon v-else-if="state === State.CORRECT || prevState === State.CORRECT" class="correct" :icon="['fas', 'check']"/>
+           <font-awesome-icon v-else-if="state === State.CORRECT || prevState === State.CORRECT" class="correct"
+                              :icon="['fas', 'check']"/>
            <font-awesome-icon v-else class="wrong" :icon="['fas', 'xmark']"/>
         </span>
     </b-col>
