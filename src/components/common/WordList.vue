@@ -23,6 +23,7 @@
                   :word="word"
                   :categories="categories"
                   @update="update"
+                  @delete="deleteWord"
         />
       </b-tbody>
     </b-table-simple>
@@ -43,6 +44,7 @@ interface Props {
 interface Emits {
   (e: 'create', word: Word),
   (e: 'update', word: Word),
+  (e: 'delete', word: Word),
   (e: 'filter', value: string),
 }
 
@@ -72,6 +74,10 @@ function addNewWord() {
   emits('create', {id: '', value: wordTranslation[0], translation: wordTranslation[1], example: '', leoLink: ''})
   searchValue.value = ''
   searchRef.value.focus()
+}
+
+function deleteWord(word: Word) {
+  emits('delete', word)
 }
 </script>
 

@@ -14,6 +14,10 @@ export default new class WordPracticeApi {
         return word
     }
 
+    delete(word: Word) {
+        console.log('deleting word...')
+    }
+
     getWordsBy(wordFilter: WordFilter | null): Array<Word> {
         let words = this.all()
         if (wordFilter?.word) {

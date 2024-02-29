@@ -17,6 +17,9 @@
         <b-link class="nav-link" target="_blank" :href="word.leoLink">
           <font-awesome-icon :icon="['fas', 'paw']"/>
         </b-link>
+        <b-button variant="link" class="nav-link" @click="deleteWord">
+          <font-awesome-icon :icon="['fas', 'trash']"/>
+        </b-button>
       </div>
     </b-td>
   </b-tr>
@@ -37,8 +40,7 @@ interface Props {
 
 interface Emits {
   (e: 'update', word: Word)
-  (e: 'saveValue', value: string),
-  (e: 'saveTranslation', translation: string),
+  (e: 'delete', word: Word)
 }
 
 const props = defineProps<Props>()
@@ -68,6 +70,10 @@ function saveCategory(value: Category) {
   category.value = value
   props.word.category = value
   emits('update', props.word)
+}
+
+function deleteWord() {
+  emits('delete', props.word)
 }
 </script>
 

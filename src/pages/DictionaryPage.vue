@@ -1,6 +1,6 @@
 <template>
   <page>
-    <word-list :words="words" @create="create" @update="update" :categories="categories" @filter="filter"/>
+    <word-list :words="words" @create="create" @update="update" :categories="categories" @filter="filter" @delete="deleteWord"/>
   </page>
 </template>
 
@@ -27,6 +27,14 @@ function update(word: Word) {
 
 function filter(value: string) {
   words.value = wordApi.getWordsBy({word: value})
+}
+
+function deleteWord(word: Word) {
+  wordApi.delete(word)
+  const index = words.value.findIndex(it => it.id === word.id)
+  if (index !== -1) {
+    words.value.splice(index, 1)
+  }
 }
 </script>
 
