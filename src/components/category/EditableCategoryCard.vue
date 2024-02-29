@@ -10,16 +10,16 @@
 
         <template v-if="!readMode">
           <b-button variant="link" class="nav-link" @click="updateCategory">
-            <font-awesome-icon :icon="['fas', 'check']" />
+            <font-awesome-icon :icon="['fas', 'check']"/>
           </b-button>
 
           <b-button variant="link" class="nav-link" @click="cancel">
-            <font-awesome-icon :icon="['fas', 'xmark']" />
+            <font-awesome-icon :icon="['fas', 'xmark']"/>
           </b-button>
         </template>
 
         <b-button variant="link" class="nav-link" @click="deleteCategory">
-          <font-awesome-icon :icon="['fas', 'trash']" />
+          <font-awesome-icon :icon="['fas', 'trash']"/>
         </b-button>
       </div>
     </b-row>
@@ -35,6 +35,24 @@
       </b-col>
     </b-row>
   </b-card>
+
+  <b-modal ref="deletionModal" id="delete-category-modal" title="Delete category?" @hide.prevent hide-header-close>
+    <p>
+      The category '{{ editableCategory.name }}' contains {{ editableCategory.wordCount }}
+      {{ editableCategory.wordCount === 1 ? 'word' : 'words' }}. Are you sure you
+      want to delete it?
+    </p>
+
+    <template #footer>
+      <b-button @click="abortDeletion" variant="link" class="nav-link mr-2">
+        Cancel
+      </b-button>
+
+      <b-button @click="confirmDeletion" variant="dark">
+        Delete
+      </b-button>
+    </template>
+  </b-modal>
 </template>
 
 <script setup lang="ts">
@@ -54,9 +72,12 @@ interface Emits {
 const props = defineProps<Props>()
 const emits = defineEmits<Emits>()
 
+const categoryForm = ref(null)
+const deletionModal = ref(null)
+
 const editableCategory = ref(props.category)
 const readMode = ref(true)
-const categoryForm = ref(null)
+
 const imageSrc = ref(props.category.pictureUrl)
 
 function changeMode() {
@@ -65,7 +86,7 @@ function changeMode() {
 
 function updateCategory() {
   const category = categoryForm.value.getCategory()
-  categoryApi.update(category)
+  editableCategory.value = categoryApi.update(category)
   changeMode()
   imageSrc.value = category.pictureUrl
 }
@@ -76,6 +97,18 @@ function cancel() {
 }
 
 function deleteCategory() {
+  if (editableCategory.value.wordCount > 0) {
+    deletionModal.value.show()
+  } else {
+    confirmDeletion()
+  }
+}
+
+function abortDeletion() {
+  deletionModal.value.hide()
+}
+
+function confirmDeletion() {
   categoryApi.delete(editableCategory.value)
   emits('delete', editableCategory.value)
 }

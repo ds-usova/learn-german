@@ -2,6 +2,10 @@
   <b-row v-for="category in categories">
     <editable-category-card :key="category.id" :category="category" @delete="deleteCategory"/>
   </b-row>
+
+  <b-row v-if="categories.length === 0">
+    <p class="grey italic">No categories</p>
+  </b-row>
 </template>
 
 <script setup lang="ts">
